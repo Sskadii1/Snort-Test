@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/2dc4b189-56c0-4854-a49c-4911c4088d0a)# Snort-Test
+# Snort-Test
 snort
 
 Cài đặt các gói phụ thuộc: Snort cần một số gói phụ thuộc để hoạt động. Bạn có thể cài đặt chúng bằng lệnh:
