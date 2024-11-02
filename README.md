@@ -1,4 +1,4 @@
-# Snort-Test
+![image](https://github.com/user-attachments/assets/2dc4b189-56c0-4854-a49c-4911c4088d0a)# Snort-Test
 snort
 
 Cài đặt các gói phụ thuộc: Snort cần một số gói phụ thuộc để hoạt động. Bạn có thể cài đặt chúng bằng lệnh:
@@ -48,8 +48,38 @@ Sau khi cài đặt, chúng ta có thể chạy Snort, và để nó lưu lại 
 
 đây là 2 trang về ví dự thực hành, và định nghĩa về chế độ promiscuous mode.
 
+**Tạo Luật**
 
+![image](https://github.com/user-attachments/assets/74d631b4-192b-49d0-9307-31eb21b5f71c)
+Luật local của mình là: 
 
+*alert icmp any any -> 127.0.0.1 any (msg:"Loopback Ping Detected"; sid:10003; rev:1;)*
 
+Quy tắc Snort mà mình thực hiện được thiết kế để phát hiện các gói ICMP (Giao thức Thông báo Kiểm soát Internet), cụ thể là các gói ping, nhắm đến địa chỉ loopback 127.0.0.1.
 
+alert: Yêu cầu Snort tạo cảnh báo khi phát hiện gói tin khớp với quy tắc này.
+icmp: Xác định loại giao thức để tìm kiếm, trong trường hợp này là ICMP, thường được dùng cho hoạt động ping.
+
+any any: any đầu tiên là bất kỳ địa chỉ IP nguồn nào, any thứ hai là bất kỳ cổng nguồn nào. Vì ICMP không sử dụng cổng, đây chỉ là một chỗ trống.
+
+->: Chỉ hướng của luồng dữ liệu, từ nguồn đến đích.
+
+127.0.0.1: Đây là địa chỉ IP đích. 127.0.0.1 là địa chỉ loopback, được sử dụng để kiểm tra các chức năng mạng cục bộ.
+
+any: Là bất kỳ cổng đích nào. Vì ICMP không có cổng, đây cũng chỉ là một chỗ trống.
+(msg:"Loopback Ping Detected": Phần này chỉ định thông báo sẽ hiển thị trong cảnh báo khi quy tắc này khớp. Ở đây, nó sẽ cảnh báo với thông báo "Loopback Ping Detected".
+
+sid:10003: Đây là Snort ID, một mã định danh duy nhất cho quy tắc này. Quy tắc tùy chỉnh thường sử dụng SIDs bắt đầu từ 1000000 để tránh xung đột với các quy tắc tích hợp sẵn.
+
+rev:1: Đây là số phiên bản của quy tắc. Nếu bạn cập nhật quy tắc trong tương lai, bạn sẽ tăng số này lên.
+
+![image](https://github.com/user-attachments/assets/21830654-d711-47a6-8b00-78a2e03e2c9d)
+
+Test luật:
+
+sudo snort -q -l /var/log/snort -i lo -A console -c /etc/snort/snort.conf
+![image](https://github.com/user-attachments/assets/66ea1242-c7ae-4cf2-b499-8f33f947a52f)
+
+Ví dự mình thử từ file pcap tryhackme
+![image](https://github.com/user-attachments/assets/68b250f2-971b-49c3-aa8a-85e429debc11)
 
